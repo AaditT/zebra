@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <title>Graph</title>
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js'></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+
+   </head>
+<style>
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0}
+.mySlides {display: none}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+<body>
+<a href="/"> < Home </a>
+
+<center><h1> {{mypolitician}} on {{myissue}} </h1></center>
+
+<!--
+<div class="slideshow-container">
+
+{% for imglink in imglinks %}
+
+<div class="mySlides fade">
+  <center>
+  <iframe border=0 frameborder=0 height=250 width=550
+ src={{imglink}}></iframe>
+ </center>
+</div>
+{% endfor %}
+
+
+
+
+
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+
+<script>
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 2000); // Change image every 2 seconds
+}
+</script> -->
+<div class="row">
+  <div class="column" style="width:50%;">
+    <center><canvas id="chart" width="500" height="500"></canvas></center>
+  </div>
+  <div class="column" style="width:50%;">
+    <center>
+
+
+          {% if politician == 'biden' %}
+              <a class="twitter-timeline" data-width="500" data-height="500" href="https://twitter.com/JoeBiden?ref_src=twsrc%5Etfw">Tweets by JoeBiden</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          {% elif politician == 'bloomberg' %}
+              <a class="twitter-timeline" data-width="500" data-height="500" href="https://twitter.com/MikeBloomberg?ref_src=twsrc%5Etfw">Tweets by MikeBloomberg</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          {% elif politician == 'buttigieg' %}
+              <a class="twitter-timeline" data-width="500" data-height="500" href="https://twitter.com/PeteButtigieg?ref_src=twsrc%5Etfw">Tweets by PeteButtigieg</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          {% elif politician == 'de_la_fuente' %}
+              <a class="twitter-timeline" data-width="500" data-height="500" href="https://twitter.com/JoinRocky?ref_src=twsrc%5Etfw">Tweets by JoinRocky</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          {% elif politician == 'gabbard' %}
+              <a class="twitter-timeline" data-width="500" data-height="500" href="https://twitter.com/TulsiGabbard?ref_src=twsrc%5Etfw">Tweets by TulsiGabbard</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          {% elif politician == 'klobuchar' %}
+              <a class="twitter-timeline" data-width="500" data-height="500" href="https://twitter.com/amyklobuchar?ref_src=twsrc%5Etfw">Tweets by amyklobuchar</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          {% elif politician == 'sanders' %}
+              <a class="twitter-timeline" data-width="500" data-height="500" href="https://twitter.com/BernieSanders?ref_src=twsrc%5Etfw">Tweets by BernieSanders</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          {% elif politician == 'trump' %}
+              <a class="twitter-timeline" data-width="500" data-height="500" href="https://twitter.com/realDonaldTrump?ref_src=twsrc%5Etfw">Tweets by realDonaldTrump</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          {% elif politician == 'warren' %}
+              <a class="twitter-timeline" data-width="500" data-height="500" href="https://twitter.com/ewarren?ref_src=twsrc%5Etfw">Tweets by ewarren</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+          {% endif %}
+
+
+</center>
+  </div>
+</div>
+<center>
+</center>
+<script>
+   // bar chart data
+   var barData = {
+     type: 'bar',
+
+     labels : [
+       {% for val in x_vals %}
+         "{{ val }}",
+       {% endfor %}
+     ],
+     datasets : [{
+       fillColor: "rgba(140,224,255,0.2)",
+       strokeColor: "rgba(140,224,255,1)",
+       pointColor: "rgba(140,224,255,1)",
+       pointStrokeColor: "#fff",
+       pointHighlightFill: "#fff",
+       pointHighlightStroke: "rgba(151,187,205,1)",
+       bezierCurve : true,
+       data : [
+   {% for val in y_vals %}
+           {{ val }},
+         {% endfor %}]
+       }
+     ]
+   }
+ var data = [{% for val in y_vals %}
+     {{ val }},
+     {% endfor %}]
+   var mychart = document.getElementById("chart").getContext("2d");
+   steps = 1
+   max = 1
+   // draw bar chart
+   var LineChartDemo = new Chart(mychart).Bar(barData, {
+     type: 'bar',
+     scaleOverride: true,
+     scaleSteps: steps,
+     scaleStepWidth: Math.ceil(max / steps),
+     scaleStartValue: 0,
+     scaleShowVerticalLines: true,
+     scaleShowGridLines : true,
+     barShowStroke : true,
+     scaleShowLabels: true,
+     bezierCurve: false,
+   });
+</script>
+
+</body>
+</html>
