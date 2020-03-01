@@ -124,7 +124,7 @@ def get_politician_sentiment(politician, issue):
 
 @app.route('/')
 def index():
-	return render_template('index.html')
+    return render_template('index.html')
 
 def net_sentiment(pos,neg):
     return (pos-neg)
