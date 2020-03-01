@@ -1,0 +1,5 @@
+Cartel, Caught, Central American, Challenges, Checkpoint
+Identification, Immigrate
+Migrant, Immigrant, Immigrate, Immigration, Migration, Migrate
+Refugee, Refugees, Sanctuary
+Undocumented
