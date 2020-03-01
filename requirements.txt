@@ -1,0 +1,9 @@
+tweepy
+csv
+sys
+flask
+vaderSentiment.vaderSentiment.SentimentIntensityAnalyzer
+re
+string
+vaderSentiment
+vaderSentiment.vaderSentiment
